@@ -78,9 +78,13 @@
 		\textbf{HO CHI MINH CITY, AUGUST 2024}
 		
 	\end{titlepage}
+	\renewcommand*\contentsname{\textbf{TABLE OF CONTENTS}}
+	\newpage
+	\tableofcontents
+	\newpage
 	
 	\section{Data Overview}
-	This dataset contains detailed specifications, release dates, and release prices for computer components. The dataset consists of two CSV files: gpus.csv for Graphics Processing Units (GPUs) and cpus.csv for Central Processing Units (CPUs). Each table has its own data attributes, including: clock speed, maximum temperature, display resolution, power consumption, thread count, release date, release price, die size, virtualization support, and more.
+	This dataset contains detailed specifications, release dates, and release prices for Intel CPUs. The dataset consists of a single CSV file named \texttt{intel$\_$cpus.csv} that includes various data attributes such as graphic base or max dynamic frequency, maximum temperature, power consumption, thread count, release date, recommended price, virtualization support,number of cores or threads of that cpu has and more.
 	\section{Basic knowledge}
 	\subsection{Sample theoretical basis:}
 	\begin{itemize}
@@ -111,8 +115,8 @@
 				\\
 				\( S^2 = \frac{1}{n-1} \sum_{i=1}^{n} (X_i - \bar{X})^2\)
 				\\
-				\(\hat{S} = \frac{1}{n} \sum_{i=1}^{n} (X_i - \bar{X})^2\)
-				with the statistic \( \hat{S} \) called the uncorrected sample standard deviation and the statistic S called the corrected sample standard deviation.
+				\(\hat{S} ^2 = \frac{1}{n} \sum_{i=1}^{n} (X_i - \bar{X})^2\)
+				with the statistic \( \hat{S} ^2 \) called the incorrect sample standard deviation and the statistic S$^2$ called the corrected sample standard deviation.
 				
 				\item Sample proportion (qualitative sample):
 				\(F = \frac{M}{n}\) and \( f \equiv \hat{p} \equiv \frac{m}{n} \)
@@ -159,7 +163,7 @@
 		
 		\label{fig:enter-label}
 	\end{figure}
-	\\\\\\\\\\\\\\\\\\\\\\\\2. One-sample mean test.\\
+	\newpage2. One-sample mean test.\\
 	\begin{figure}[!ht]
 		\centering
 		\includegraphics[width=1\linewidth]{z5729259701060_4c1aff1ad58f30f4aeadaa46556bed31.jpg}
@@ -1438,7 +1442,8 @@
 		
 	\end{itemize}
 	\section{Code and References:}
-	
+	Information: \url{https://www.kaggle.com/datasets/iliassekkaf/computerparts}\\
+	Code: \url{https://github.com/khafu19768/btl_xxtk_24_R_source_Intel_cpus}
 	
 	
 	
