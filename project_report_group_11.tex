@@ -1,0 +1,1445 @@
+\documentclass{article}
+
+\usepackage[left=1cm,right=1cm,top=2cm,bottom=2cm]{geometry}
+\date{August 2024}
+\usepackage{vntex}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{lipsum}
+\usepackage{amsmath}
+\usepackage[shortlabels]{enumitem}
+\usepackage{seqsplit}
+\usepackage{multirow}
+\usepackage{hyperref}
+\usepackage{verbatim}
+\usepackage{listings}
+\usepackage{xcolor}
+\lstset{
+	language=R,                 % Set language
+	basicstyle=\ttfamily\small,      % Basic font style
+	keywordstyle=\color{blue},       % Keywords color
+	commentstyle=\color{green},      % Comments color
+	stringstyle=\color{red},         % Strings color
+	backgroundcolor=\color{white},   % Background color
+	frame=single,                    % Frame around the code
+	breaklines=true,                 % Line breaking
+	numbers=left,                    % Line numbers on the left
+	numberstyle=\tiny\color{gray},   % Line numbers color
+	captionpos=b,                    % Caption position
+	showstringspaces=false           % Show spaces in strings
+}
+
+\renewcommand{\arraystretch}{1.5} % Increase row height
+\begin{document}
+	
+	\begin{titlepage}
+		\centering
+		
+		\textbf{\large VIETNAM NATIONAL UNIVERSITY HO CHI MINH CITY\\}
+		\textbf{\large HO CHI MINH CITY UNIVERSITY OF TECHNOLOGY\\}
+		\textbf{\large FACULTY OF COMPUTER SCIENCE AND ENGINEERING\\}
+		
+		\vspace{1cm}
+		
+		\includegraphics[width=8cm]{HCMUT_official_logo.png}\\  % Include the logo here
+		
+		\vspace{1cm}
+		
+		\textbf{\Huge PROJECT REPORT\\}
+		\textbf{\Large COURSE: PROBABILITY AND STATISTICS\\}
+		
+		\vspace{1cm}
+		
+		\textbf{\LARGE Group 11 - Faculty of Computer Science and Engineering\\}
+		
+		\vspace{1cm}
+		
+		\textbf{\Large Semester 233\\}
+		
+		
+		\textbf{\Large Supervisor: TS.NGUYỄN TIẾN DŨNG\\}
+		
+		\vspace{1cm}
+		
+		\begin{tabular}{|c|l|c|l|}
+			\hline
+			\textbf{No.} & \textbf{Name} & \textbf{Student ID} & \textbf{Class} \\
+			\hline
+			1. & Trần Anh Tuấn & 2353276  & DTQ1 \\
+			2. & Vũ Tiến Vinh & 2353334 & DTQ1 \\
+			3. & Mai Nam Phương & 2252656  & DTQ1 \\
+			4. & Lâm Minh Tùng Quân & 2352991  & DTQ1 \\
+			5. & Hoàng Đình Hiếu & 2310945 & DTQ1 \\
+			\hline
+		\end{tabular}
+		
+		\vspace{1cm}
+		
+		\textbf{HO CHI MINH CITY, AUGUST 2024}
+		
+	\end{titlepage}
+	
+	\section{Data Overview}
+	This dataset contains detailed specifications, release dates, and release prices for computer components. The dataset consists of two CSV files: gpus.csv for Graphics Processing Units (GPUs) and cpus.csv for Central Processing Units (CPUs). Each table has its own data attributes, including: clock speed, maximum temperature, display resolution, power consumption, thread count, release date, release price, die size, virtualization support, and more.
+	\section{Basic knowledge}
+	\subsection{Sample theoretical basis:}
+	\begin{itemize}
+		\item \textbf {Some concepts:}
+		\begin{itemize}
+			
+			\item Statistical population (Population): is a set of elements belonging to the research object, which need to be observed, collected and analyzed according to one or some characteristics. The elements that make up the statistical population are called population units.
+			
+			\item A sample (Sample) is a number of units selected from a population by some sampling method. The characteristics of the sample are used to generalize the characteristics of the population as a whole.
+			
+			\item Statistical characteristics (research indicators) are important properties directly related to the research and survey content that require data collection on the population; They are divided into two types: attribute characteristics and quantitative characteristics.
+			
+			\item Primary data is data collected directly from the research subject at the request of the researcher.
+			
+			\item Secondary data is data from available sources, often already synthesized and processed; using secondary data helps researchers save time, effort and costs compared to collecting primary data; it should be noted that this data sometimes does not meet the more detailed requirements of the research.
+		\end{itemize}
+		
+		\item \textbf{Characteristics of random samples:}
+		\\The function \( g(X_1, \ldots, X_n) \) with \( (X_1, \ldots, X_n) \) being a random sample is called a sample function or a statistic. Since the sample \( (X_1, \ldots, X_n) \) is a random vector, \( g(X_1, \ldots, X_n) \) is a random variable. There are two important groups of sample statistics that characterize population random variables:
+		
+		\begin{itemize}
+			\item The characteristic numbers give us an idea of the central position of the sample, that is, the tendency of the data in the sample to cluster around certain numbers. For example, the sample mean, the sample median, the sample mode, ...
+			\item Numbers that characterize the dispersion of data: mean deviation, standard deviation, and sample variance.
+			\begin{itemize}
+				\item Sample mean: Consider a random sample \( (X_1, \ldots, X_n) \) of BNN \( X \), the statistic \( \bar{X} = \frac{1}{n} (X_1 + X_2 + \ldots + X_n) = \frac{1}{n} \sum_{i=1}^{n} X_i \) is called the sample mean. For a specific sample \( (x_1, \ldots, x_n) \) then: \(\bar{x} = \frac{1}{n} \sum_{i=1}^{n} x_i\) is the value that the sample mean receives corresponding to the given sample. If the data is given in a table, then \(\bar{X} = \frac{1}{n} \sum_{i=1}^{k} x_i n_i\)
+				
+				\item Sample variance: Similar to the sample mean, the sample variance is defined as the expectation of the squared deviations of the sample components with respect to the sample mean and is denoted by:
+				\\
+				\( S^2 = \frac{1}{n-1} \sum_{i=1}^{n} (X_i - \bar{X})^2\)
+				\\
+				\(\hat{S} = \frac{1}{n} \sum_{i=1}^{n} (X_i - \bar{X})^2\)
+				with the statistic \( \hat{S} \) called the uncorrected sample standard deviation and the statistic S called the corrected sample standard deviation.
+				
+				\item Sample proportion (qualitative sample):
+				\(F = \frac{M}{n}\) and \( f \equiv \hat{p} \equiv \frac{m}{n} \)
+				
+				\item Coefficient of variation (CV): Coefficient of variation measures the relative variability of a data sample, and is used when one wants to compare the variability of samples that do not have the same unit of measurement.
+				\\
+				\( \text{CV (of sample)} = \frac{s}{x} \times 100\% \)
+				
+				\item Median: Suppose the sample of size n is arranged in ascending order according to the value under investigation: 
+				\\
+				\( x_1 \le x_2 \le \ldots \le x_{n-1} \le x_n \)
+				If \( n = 2k + 1 \), the sample median is the value \( x_{k+1} \). If \( n = 2k \), the sample median is the value \(\frac{x_k + x_{k+1}}{2} \).
+				
+				\item Quartiles: The median value divides the ordered data sample into two sets of equal number of elements. The median of the smaller data set is Q1 (called the lower quartile) and the median of the larger data set is Q3 (called the upper quartile). Q2 is taken as the median value.
+				
+				\item Outlier points: also known as outliers, exceptional points, outliers... These are sample elements whose values lie outside the range (Q1 – 1.5IQR; Q3 + 1.5IQR).
+			\end{itemize}
+		\end{itemize}
+	\end{itemize}
+	
+	\subsection{Statistical hypothesis testing:}
+	\begin{itemize}
+		\item Principle of small probability: if an event has a very small probability of occurring, it can be assumed that it will not occur when performing an experiment related to that event.
+		\item Method of contradiction: If a correct hypothesis leads to an absurdity, we reject it (accept the alternative hypothesis).
+	\end{itemize}
+	
+	\textbf{* General principles of statistical hypothesis testing:}
+	\begin{itemize}
+		\item {Statistical Hypothesis Testing Criterion:} From the original random variable \( X \) of the population, draw a random sample \( X_1, \ldots, X_n \) and select a statistic \( T = T(X_1, \ldots, X_n) \) which may depend on parameters specified in the null hypothesis \( H_0 \). If the null hypothesis \( H_0 \) is true, then the distribution law of \( T \) must be completely specified. Such a statistic is called a test criterion.
+		\item {Test Rule:} If we succeed in dividing the domain of the test statistic \( T \) into two parts, \( R_\alpha \) and \( \bar{R_\alpha} \), where \( R_\alpha \) is the rejection region and \( \bar{R_\alpha} \) is the acceptance region of \( H_0 \).
+		\item Type I and Type II errors With the above testing rule, the following two types of errors can be made: (i) Type I error: rejecting a true hypothesis. We see that the probability of making a type I error is exactly equal to the significance level \(\alpha\). Type I errors arise due to too small sample size, due to sampling method...\\
+		(ii) Type II Error: Accepting a false hypothesis. The probability of a Type II error is denoted by \( \beta \) and is defined as: \(P(T \notin R_\alpha \mid H_1) = \beta\)
+		\item Statistical hypothesis testing procedure: Through the content presented above, we can build a statistical hypothesis testing procedure including the following steps:\\
+		(i) State the null hypothesis \(H_0\) and the alternative hypothesis \(H_1\).\\
+		(ii) From the total study population, randomly sample size n.\\
+		(iii) Choose the test criterion T and determine the probability distribution law of T under the condition that the hypothesis \(H_0\) is true.\\
+		(iv) Based on the probability distribution of \( T \), find the rejection region \( R_\alpha \) such that: \(P(T \in R_\alpha \mid H_1) = \alpha\)
+	\end{itemize}
+	\textbf{* Tests using one sample:}\\\\
+	1. One-sample proportion test.\\
+	\begin{figure}[!ht]
+		\centering
+		\includegraphics[width=1\linewidth]{z5729144591812_a406c726c3ba095218627c23be96a318.jpg}
+		
+		\label{fig:enter-label}
+	\end{figure}
+	\\\\\\\\\\\\\\\\\\\\\\\\2. One-sample mean test.\\
+	\begin{figure}[!ht]
+		\centering
+		\includegraphics[width=1\linewidth]{z5729259701060_4c1aff1ad58f30f4aeadaa46556bed31.jpg}
+		
+		\label{fig:enter-label}
+	\end{figure}
+	\\\textbf{* Tests using two samples:}\\\\
+	1. Two-sample proportion test.\\
+	\begin{figure}[!ht]
+		\centering
+		\includegraphics[width=1\linewidth]{z5729292262849_8db814238693021a91e30a24113691fa.jpg}
+		
+		\label{fig:enter-label}
+	\end{figure}\\\\\\\\\\
+	2. Two-sample mean test.\\
+	\begin{figure}[!ht]
+		\centering
+		\includegraphics[width=1\linewidth]{z5729456571196_3a7c38d46dc02ce7507d5dc5ac3bc0a6.jpg}
+		
+		\label{fig:enter-label}
+	\end{figure}
+	\subsection{Simple Linear Regression Problem:}
+	Regression analysis is the study of the relationship between one variable (called the dependent variable) and one or more other variables (called the independent variables), with the goal of estimating the average (overall) value of the dependent variable based on the values of the independent variables, using a known sample.\\
+	
+	\textbf{* Definition:} The regression function of \( Y \) with respect to \( X \) is the conditional expectation of \( Y \) given \( X \), i.e., \( E(Y|X) \). \\
+	The simple linear regression equation is of the form: \( f_Y(X) = E(Y|X) = \beta_0 + \beta_1 X \).\\
+	
+	\textbf{* Simple Linear Regression Model:} The assumptions of the simple linear regression model are as follows: We have parameters \( \beta_0 \), \( \beta_1 \), and \( \sigma^2 \) such that for each value \( x \) of the independent variable, the dependent variable \( Y \) is related to \( x \) according to the equation \( Y = \beta_0 + \beta_1 x + \epsilon \), where \( \epsilon \) is a random error term with a normal distribution \( N(0, \sigma^2) \).
+	
+	\textbf{* Correlation coefficient and sample linear regression equation:}\\
+	(a) Sample correlation coefficient:
+	\[
+	r = \frac{n \sum_{i=1}^{n} x_i y_i - \left(\sum_{i=1}^{n} x_i\right)\left(\sum_{i=1}^{n} y_i\right)}
+	{\sqrt{n \sum_{i=1}^{n} x_i^2 - \left(\sum_{i=1}^{n} x_i\right)^2} \sqrt{n \sum_{i=1}^{n} y_i^2 - \left(\sum_{i=1}^{n} y_i\right)^2}}
+	\]
+	(b) Sample linear regression equation: \[
+	\bar{y_x} = A + Bx
+	\]
+	with \[
+	B = \frac{n \sum_{i=1}^{k} n_i x_i y_i - \sum_{i=1}^{k} n_i x_i \sum_{i=1}^{k} n_i y_i}{n \sum_{i=1}^{k} n_i x_i^2 - \left( \sum_{i=1}^{k} n_i x_i \right)^2}
+	\]
+	and \[
+	A = \frac{\sum_{i=1}^{n} y_i - B \cdot \sum_{i=1}^{n} x_i}{n}
+	\]
+	\subsection{ANOVA Problem (Analysis of Variance):}
+	Analysis of Variance (ANOVA) is the comparison of the means of several groups (populations) based on the means of the observed samples from these groups and through testing the hypothesis of the conclusion about the equality of these population means. In research, analysis of variance is used as a tool to examine the influence of a causal factor (qualitative) on a result factor (quantitative).
+	\begin{itemize}
+		\item 
+		\textbf{One-factor ANOVA:} One-factor ANOVA is the analysis of the influence of a causal factor (qualitative variable) on a result factor (quantitative variable) under study. In the case of k populations with normal distribution and equal variance: Suppose that we want to compare the mean of k populations (for example k = 3) based on independent random samples of n1, n2, n3, ..., nk observed from k populations. It is necessary to remember the following three assumptions about the populations in which ANOVA is conducted:
+		\begin{itemize}
+			\item The populations are normally distributed.
+			\item Population variances are equal.
+			\item Sampled observations are independent.
+		\end{itemize}
+		If the population means are denoted as \(\mu_1, \mu_2, \mu_3, \ldots, \mu_k\), then when the above assumptions are met, the one-way ANOVA model is described in terms of hypothesis testing as follows: \(H_0: \mu_1 = \mu_2 = \mu_3 = \ldots = \mu_k\). The hypothesis assumes that the means of the \(k\) populations are equal (in terms of the research relationship, this hypothesis assumes that the factor has no effect on the issue being studied). And the alternative hypothesis is: \(H_1: \text{There is at least one pair} \, \mu_i \neq \mu_j, \, i \neq j\). To test this, we propose the following three hypotheses:
+		\begin{itemize}
+			\item Each sample follows a normal distribution \( N(\mu, \sigma^2) \).
+			\item The population variances are equal.
+			\item We take \( k \) independent samples from \( k \) populations. Each sample is observed \( n_j \) times.
+		\end{itemize}
+		ANOVA analysis steps:
+		\begin{enumerate}
+			\item Calculate the mean values: Mean of each column and the overall mean.
+			\item Calculate the sum of squares:
+			\begin{itemize}
+				\item Sum of squares due to columns: \( \text{SSG} = \sum_{i=1}^k n_i (\bar{x_i} - \bar{x})^2 \)
+				\item Total sum of squares: \( \text{SST} = \sum_{i=1}^k \sum_{j=1}^{n_i} (x_{ij} - \bar{x})^2 \)
+				\item Sum of squares within columns: \( \text{SSW} = \text{SST} - \text{SSG} \)
+			\end{itemize}
+			\item Calculate the variances:
+			\begin{itemize}
+				\item Mean square due to columns: \( \text{MSG} = \frac{\text{SSG}}{k-1} \)
+				\item Mean square within columns: \( \text{MSW} = \frac{\text{SSW}}{n-k} \)
+			\end{itemize}
+			\item Test statistic: \( F = \frac{\text{MSG}}{\text{MSW}} \)
+			\item Reject the null hypothesis \( H_0 \) if \( F > F_{k-1, n-k, \alpha} \)
+		\end{enumerate}
+		\item 
+		\textbf{Two-factor variance analysis:} Two-factor variance analysis aims to simultaneously consider two causal factors (in the form of qualitative data) affecting the outcome factor (in the form of quantitative data) being studied. For example: Study the effect of fuel type and drying oven type on the rate of drying grade 1 fabric. Two-factor variance analysis helps us add causal factors to the analysis to make the research results more valuable.\\
+		Suppose we study the effect of 2 qualitative causal factors on a certain quantitative outcome factor. We take a non-repetitive sample, then the sample units of the first causal factor are arranged into K groups (columns), the sample units of the second causal factor are arranged into H blocks (rows). Thus, we have a table combining 2 causal factors including K columns and H rows and (K x H) data cells. The total number of observed samples is n = (K x H).\\
+		\\
+		To test, we make the following two assumptions:
+		\begin{itemize}
+			\item Each sample follows a normal distribution \( N(\mu, \phi^2) \).
+			\item We take \( K \) independent samples from \( K \) populations and \( H \) independent samples from \( H \) populations. Each sample is observed once, without repetition.
+		\end{itemize}
+		Steps to follow:
+		\begin{enumerate}
+			\item Calculate the mean values.
+			\item Compute the total sum of squares.
+			\item Determine the variances.
+			\item Perform the hypothesis test.
+		\end{enumerate}
+	\end{itemize}
+	\section{Data preprocessing}
+	\textbf{Key variables in the dataset:}
+	\begin{itemize}
+		\item \textbf{Product\_Collection}: Refers to the family or series that the CPU belongs to, such as Intel Core, AMD Ryzen, etc. Different collections target different markets or performance levels.
+		\item \textbf{Vertical\_Segment}: The specific market segment the CPU is designed for, such as desktop, mobile, server, or embedded systems.
+		\item \textbf{Processor\_Number
+		}: A specific model number that identifies the CPU within a product line, like Intel i7-10700K or AMD Ryzen 5 3600.
+		
+		\item \textbf{Status}: The current market status of the CPU, indicating whether it is currently being produced, discontinued, or retired.
+		\item \textbf{Launch\_Date}: The date when the CPU was officially released to the market.
+		\item \textbf{Lithography}: Refers to the manufacturing process technology, often measured in nanometers (nm), such as 7nm or 14nm. Smaller lithography typically indicates a more advanced, power-efficient, and potentially faster CPU.
+		\item \textbf{Recommended\_Customer\_Price
+		}: The price suggested by the manufacturer for customers to purchase the CPU.
+		
+		\item \textbf{nb\_of\_Cores}: The number of cores in the CPU. A core is an individual processing unit within the CPU, capable of executing its own instructions.
+		
+		\item \textbf{nb\_of\_Threads}: The number of threads the CPU can handle simultaneously. Threads represent virtual cores, helping in multitasking.
+		\item \textbf{Processor\_Base\_Frequency}: The base operating speed of the CPU, usually measured in GHz. It indicates the clock speed when the CPU is running under normal conditions.
+		\item \textbf{Max\_Turbo\_Frequency}: The maximum speed the CPU can achieve temporarily under load, thanks to technologies like Intel Turbo Boost.
+		\item \textbf{Cache}: A small amount of high-speed memory located within the CPU used to store frequently accessed data and instructions. Cache sizes are usually measured in MB.
+		\item \textbf{Bus\_Speed}: The speed at which data is transferred between the CPU and the memory or other components. It’s often measured in MHz.
+		\item \textbf{TDP (Thermal Design Power)}: The amount of heat the CPU is expected to dissipate under maximum load, usually measured in watts. It’s an indicator of the power consumption and cooling requirements.
+		\item \textbf{Embedded\_Options\_Available}: The speed at which data is transferred between the CPU and the memory or other components. It’s often measured in MHz.
+		\item \textbf{Conflict\_Free}: Indicates whether the CPU is made without conflict minerals, which are sourced from areas associated with human rights abuses.
+		\item \textbf{Max\_Memory\_Size}: The maximum amount of memory (RAM) the CPU can support.
+		\item \textbf{Memory\_Types}: The types of RAM that are compatible with the CPU, such as DDR4 or DDR5.
+		\item \textbf{Max\_nb\_of\_Memory\_Channels}: The maximum number of memory channels the CPU can utilize. More channels typically mean better memory bandwidth.
+		\item \textbf{Max\_Memory\_Bandwidth}: The maximum rate at which data can be read from or stored into memory by the CPU, measured in GB/s.
+		\item \textbf{ ECC\_Memory\_Supported}: Indicates whether the CPU supports Error-Correcting Code (ECC) memory, which is used to detect and correct data corruption.
+		\item \textbf{Processor\_Graphics}: Refers to the integrated graphics processing unit (GPU) included within the CPU. Not all CPUs have integrated graphics.
+		\item \textbf{Graphics\_Base\_Frequency}: The base frequency of the integrated graphics, indicating the speed at which the GPU operates under normal conditions.
+		\item \textbf{Graphics\_Max\_Dynamic\_Frequency}: The maximum frequency that the integrated graphics can reach temporarily under load.
+		\item \textbf{Graphics\_Video\_Max\_Memory}: The maximum amount of video memory that the integrated graphics can use.
+		\item \textbf{Graphics\_Output}: The types of video outputs supported by the integrated graphics, like HDMI, DisplayPort, etc.
+		\item \textbf{ Support\_4k}: Indicates whether the CPU’s integrated graphics can support 4K resolution displays.
+		\item \textbf{ Max\_Resolution\_HDMI}: The maximum resolution supported by the integrated graphics through an HDMI connection.
+		\item \textbf{Max\_Resolution\_DP (DisplayPort)}: The maximum resolution supported by the integrated graphics through a DisplayPort connection.
+		\item \textbf{Max\_Resolution\_eDP\_Integrated\_Flat\_Panel}: The maximum resolution supported by the integrated graphics for an embedded DisplayPort (eDP) connected to an integrated flat panel.
+		\item \textbf{DirectX\_Support
+		}: The version of Microsoft’s DirectX API supported by the integrated graphics, which is important for gaming and multimedia applications.
+		\item \textbf{OpenGL\_Support}: The version of the OpenGL API supported by the integrated graphics, used in rendering 2D and 3D vector graphics.
+		\item \textbf{PCI\_Express\_Revision}: The version of the PCI Express (PCIe) standard supported by the CPU, which affects the data transfer speed between the CPU and other components like GPUs.
+		\item \textbf{PCI\_Express\_Configurations}: The possible configurations of PCIe lanes that the CPU can support (e.g., x16, x8, x4). This influences the performance and flexibility of the system.
+		\item \textbf{Max\_nb\_of\_PCI\_Express\_Lanes}: The maximum number of PCIe lanes available on the CPU. More lanes allow for more or faster connections to GPUs, SSDs, and other peripherals.
+		\item \textbf{T}: This could be a specific variable or setting in the context of your data. In general, it might refer to a temperature setting or thermal threshold in CPUs, but it’s ambiguous without additional context.
+		\item \textbf{Intel\_Hyper\_Threading\_Technology}:  Intel's technology that allows a single physical CPU core to act like two virtual cores (threads), improving multitasking performance.
+		\item \textbf{Intel\_Virtualization\_Technology\_VTx}:  Intel’s technology that allows a CPU to run multiple operating systems or virtual machines on a single physical machine, enhancing virtualization performance.
+		\item \textbf{Intel\_64}: Refers to Intel’s 64-bit architecture, which allows the CPU to handle more data at once compared to a 32-bit architecture.
+		\item \textbf{Instruction\_Set}: The set of instructions that the CPU can execute, like x86 or ARM. This defines how software interacts with the CPU.
+		\item \textbf{Instruction\_Set\_Extensions}: Additional instruction sets supported by the CPU that extend its capabilities, like SSE, AVX, or MMX, used to accelerate specific types of computations.
+		\item \textbf{Idle\_States}:Power-saving states that the CPU can enter when it’s not fully active, reducing energy consumption.
+		\item \textbf{Thermal\_Monitoring\_Technologies}: Features that monitor and manage the CPU’s temperature to prevent overheating and ensure stable operation.
+		\item \textbf{Secure\_Key}: A security feature that supports encryption by generating cryptographic keys directly on the CPU.
+		\item \textbf{Execute\_Disable\_Bit}: A hardware-based security feature that helps prevent malicious code from being executed in certain memory areas, enhancing protection against some types of attacks.
+	\end{itemize}
+	
+	\section{Descriptive statistics}
+	This section is going to plot histogram and boxplot of every significant field of the dataset
+	
+	\subsection{Launch date}
+	\begin{itemize}
+		\item \textbf{Code:}
+		\begin{lstlisting}[basicstyle=\ttfamily, frame=single,language=R]
+			#Diagram of Launch date
+			hist(cpu_df$Launch_Date, breaks = 50, xlim = c(0,20), ylim = c(0,600),
+			xlab = "", ylab = "Frequency",
+			main = "Histogram of Launch_Date")
+			boxplot(cpu_df$Launch_Date, main = "Boxplot of Launch_Date")
+		\end{lstlisting}
+		\item \textbf{Result:}
+		\begin{center} \includegraphics[scale=0.5]{plot-launchdate.png}    \end{center}
+		\item \textbf{Comments:}
+		\begin{itemize}
+			\item \textbf{Histogram of \texttt{Launch\_Date}:}
+			\begin{itemize}
+				\item \textbf{Shape of the Distribution:} 
+				The histogram displays the distribution of CPU launch dates. You might observe peaks indicating periods with high numbers of CPU releases, reflecting technological advancements or market demand spikes. For instance, if there are peaks around \texttt{Q1'10} and \texttt{Q2'20}, it suggests that these quarters saw more releases.
+				\item \textbf{Spread of the Data:} 
+				The width of the histogram shows the range of launch dates. If the bars are spread across many years, it suggests that the dataset includes CPUs released over a long time span, from early years to recent.
+				\item \textbf{Frequency of Launch Dates:} 
+				The y-axis represents the number of CPUs released in each quarter. Taller bars indicate more frequent releases in those periods, while shorter bars represent less common launch times.
+			\end{itemize}
+			
+			\item \textbf{Box Plot of \texttt{Launch\_Date}:}
+			\begin{itemize}
+				\item \textbf{Median Launch Date:} 
+				The thick line inside the box represents the median launch date. For example, if the median is around \texttt{Q2'15}, it indicates that 50\% of the CPUs were released before or during this quarter, and 50\% were released after.
+				\item \textbf{Interquartile Range (IQR):} 
+				The length of the box shows the interquartile range, encompassing the middle 50\% of the data. A longer box suggests greater variability in the launch dates of CPUs, while a shorter box indicates a more concentrated release period.
+				\item \textbf{Outliers:} 
+				Outliers are plotted as individual points outside the whiskers. These could be CPUs released in very early or very recent quarters compared to the majority of the dataset. For instance, a CPU released in \texttt{Q1'00} or \texttt{Q4'21} might be an outlier.
+				\item \textbf{Symmetry:} 
+				The position of the median within the box and the length of the whiskers provide insights into the distribution's symmetry. If the median is closer to one end, it suggests a skew in the data, with more CPUs released in either the earlier or later years.
+			\end{itemize}
+		\end{itemize}
+	\end{itemize}
+	
+	\subsection{Recommend customer price}
+	\begin{itemize}
+		\item \textbf{Code:}
+		\begin{lstlisting}[basicstyle=\ttfamily, frame=single,language=R]
+			#Diagram of Recommended customer price
+			hist(cpu_df$Recommended_Customer_Price, breaks = 50, xlab = "Dollar", ylab = "Frequency",
+			xlim = c(0, 15000), ylim = c(0, 1100),
+			main = "Histogramr of \n Recommended_Customer_Price")
+			boxplot(cpu_df$Recommended_Customer_Price, main = "Boxplot of \n Recommended_Customer_Price")
+		\end{lstlisting}
+		\item \textbf{Result:}
+		\begin{figure}[h]
+			\centering
+			\includegraphics[scale=0.45]{plot-recommend-cus-price.png}   %rescale
+			\label{fig:recommend-cus-price}
+		\end{figure}
+		
+		\item \textbf{Comments:}
+		\begin{itemize}
+			\item \textbf{Histogram of \texttt{Recommended\_Customer\_Price}:}
+			\begin{itemize}
+				\item \textbf{Shape of the Distribution:} 
+				The histogram shows how prices are distributed. A peak in lower price ranges might suggest that most CPUs are budget-friendly, with fewer high-end options.
+				\item \textbf{Spread of the Data:} 
+				The width of the histogram indicates the range of prices. A broad spread suggests a wide range of CPU prices, from low to high.
+				\item \textbf{Frequency of Price Ranges:} 
+				Taller bars represent price ranges with more CPUs, while shorter bars show less common price ranges. For example, if most CPUs are priced between \$200 and \$500, this range will have higher bars.
+			\end{itemize}
+			
+			\item \textbf{Box Plot of \texttt{Recommended\_Customer\_Price}:}
+			\begin{itemize}
+				\item \textbf{Median Price:} 
+				The median, indicated by the thick line in the box, represents the middle price point. If the median is around \$300, it means that half of the CPUs are priced below this amount, and half are above.
+				\item \textbf{Interquartile Range (IQR):} 
+				The box length shows the range where the central 50\% of prices fall. A larger box indicates more variability in CPU prices, while a smaller box indicates less variability.
+				\item \textbf{Outliers:} 
+				Outliers are individual points outside the whiskers and could be exceptionally high or low prices compared to the majority of CPUs.
+				\item \textbf{Symmetry:} 
+				The median's position within the box and the whisker lengths reveal whether the distribution is skewed. If the median is closer to one side, it suggests a skew towards higher or lower prices.
+			\end{itemize}
+		\end{itemize}
+	\end{itemize}
+	\subsection{Number of cores}
+	\begin{itemize}
+		\item \textbf{Code:}
+		\begin{lstlisting}[basicstyle=\ttfamily, frame=single,language=R]
+			#Diagram of nb of cores
+			hist(cpu_df$nb_of_Cores, breaks = 50, xlab = "Core", ylab = "Frequency",
+			xlim = c(0, 80), ylim = c(0, 1400), main = "Histogram of nb_of_Cores")
+			boxplot(cpu_df$nb_of_Cores, main = "Boxplot of nb_of_Cores")
+		\end{lstlisting}
+		\item \textbf{Result:}
+		\begin{figure}[h]
+			\centering \includegraphics[scale=0.625]{no_of_cores.png}   %rescale
+			\label{fig:enter-label}
+		\end{figure}
+		\item \textbf{Comments:}
+		\begin{itemize}
+			\item \textbf{Histogram of \texttt{nb\_of\_Cores}:}
+			\begin{itemize}
+				\item \textbf{Shape of the Distribution:} 
+				The histogram displays the distribution of CPU core counts. Peaks might be observed at common core counts like \texttt{4}, \texttt{6}, or \texttt{8}, reflecting the typical configurations used in CPUs.
+				\item \textbf{Spread of the Data:} 
+				The width shows the range of core counts. A wider distribution suggests that CPUs in the dataset include both low and high core counts.
+				\item \textbf{Frequency of Core Counts:} 
+				Taller bars on the y-axis represent more frequent core counts, with shorter bars for less common counts. For instance, \texttt{4 cores} might be common, while \texttt{16 cores} are less frequent.
+			\end{itemize}
+			\item \textbf{Box Plot of \texttt{nb\_of\_Cores}:}
+			\begin{itemize}
+				\item \textbf{Median Core Count:} 
+				The median core count is indicated by the thick line in the box. For example, if the median is \texttt{6}, it suggests that half of the CPUs have fewer than \texttt{6 cores}, and half have more.
+				\item \textbf{Interquartile Range (IQR):} 
+				The box length shows the variability of core counts. A longer box suggests a wider range of core counts among CPUs, while a shorter box indicates a narrower range.
+				\item \textbf{Outliers:} 
+				Outliers are core counts significantly different from the majority. For instance, \texttt{32 cores} might be an outlier if most CPUs have fewer cores.
+				\item \textbf{Symmetry:} 
+				The position of the median and whisker lengths reveal the data's symmetry. If the median is closer to one end, it indicates a skew in core counts.
+			\end{itemize}
+		\end{itemize}
+	\end{itemize}
+	\subsection{Number of threads}
+	\begin{itemize}
+		\item \textbf{Code:}
+		\begin{lstlisting}[basicstyle=\ttfamily, frame=single,language=R]
+			#Diagram of nb of threads
+			hist(cpu_df$nb_of_Threads, breaks = 50, xlab = "Thread", ylab = "Frequency",
+			xlim = c(0, 60), ylim = c(0, 1000), main = "Histogram of nb_of_Threads")
+			boxplot(cpu_df$nb_of_Threads, main = "Boxplot of nb_of_Threads")
+		\end{lstlisting}
+		\item \textbf{Result:}
+		\begin{figure}[h]
+			\centering
+			\includegraphics[scale=0.50]{no_of_threads.png}  %rescale
+			\label{fig:enter-label}
+		\end{figure}
+		\item \textbf{Comments:}
+		\begin{itemize}
+			\item \textbf{Histogram of \texttt{nb\_of\_Threads}:}
+			\begin{itemize}
+				\item \textbf{Shape of the Distribution:} The histogram shows the distribution of CPU threads. Peaks at common thread counts such as \texttt{8}, \texttt{12}, or \texttt{16} reflect typical configurations.
+				\item \textbf{Spread of the Data:} The width indicates the range of thread counts. A broad range suggests CPUs with a variety of thread counts are included.
+				\item \textbf{Frequency of Thread Counts:} Taller bars represent more frequent thread counts, while shorter bars indicate less common counts. For example, \texttt{8 threads} might be common, whereas \texttt{32 threads} are less frequent.
+			\end{itemize}
+			\item \textbf{Box Plot of \texttt{nb\_of\_Threads}:}
+			\begin{itemize}
+				\item \textbf{Median Thread Count:} The median thread count is shown by the thick line in the box. If the median is \texttt{12}, it indicates that half of the CPUs have fewer than \texttt{12 threads}, and half have more.
+				\item \textbf{Interquartile Range (IQR):} The box length represents the middle 50\% of thread counts. A longer box indicates greater variability, while a shorter box indicates less variability.
+				\item \textbf{Outliers:} Outliers are thread counts significantly different from the majority. For instance, `64 threads` might be an outlier if most CPUs have fewer threads.
+				\item \textbf{Symmetry:} The median’s position and whisker lengths reveal symmetry in the distribution. A median closer to one end suggests skewness in thread counts.
+			\end{itemize}
+		\end{itemize}
+	\end{itemize}
+	\subsection{Processor base frequency}
+	\begin{itemize}
+		\item \textbf{Code:}
+		\begin{lstlisting}[basicstyle=\ttfamily, frame=single,language=R]
+			# Create a histogram of Processor_Base_Frequency
+			hist(cpu_df$Processor_Base_Frequency, 
+			breaks = 50, xlim = c(0, 4.300e+09), ylim = c(0, 150),
+			xlab = "Hz", ylab = "Frequency", 
+			main = "Histogram of \n Processor_Base_Frequency", 
+			col = "pink", border = "black")
+			# Create a box plot of Processor_Base_Frequency
+			boxplot(cpu_df$Processor_Base_Frequency, 
+			main = "Boxplot of \n Processor_Base_Frequency", 
+			ylab = "Frequency (Hz)", col = "lightblue", border = "black")
+		\end{lstlisting}
+		\item \textbf{Result:}
+		\begin{figure}[h]
+			\centering
+			\includegraphics[scale=0.65]{base-freq.png} %rescale
+			\label{fig:enter-label}
+		\end{figure}
+		\item \textbf{Comments:}
+		\begin{itemize}
+			\item \textbf{Histogram of \texttt{Processor\_Base\_Frequency}:}
+			\begin{itemize}
+				\item \textbf{Shape of the Distribution:} The histogram shows the distribution of base frequencies. Peaks at specific frequencies like \texttt{2.0 GHz} or \texttt{3.5 GHz} reflect common base speeds used in CPUs.
+				\item \textbf{Spread of the Data:} The width of the histogram indicates the range of frequencies. A broad range suggests diverse base frequencies across CPUs.
+				\item \textbf{Frequency of Base Frequencies:} Taller bars indicate more CPUs with those frequencies. For instance, \texttt{2.5 GHz} might be common, while higher frequencies like `5.0 GHz` are less frequent.
+			\end{itemize}
+			\item \textbf{Box Plot of \texttt{Processor\_Base\_Frequency}:}
+			\begin{itemize}
+				\item \textbf{Median Base Frequency:} The median base frequency is shown by the thick line in the box. If the median is \texttt{3.0 GHz}, it indicates that half of the CPUs have base frequencies below \texttt{3.0 GHz}, and half are above.
+				\item \textbf{Interquartile Range (IQR):} The length of the box represents the variability in base frequencies. A longer box suggests a wider range of base frequencies, while a shorter box indicates less variability.
+				\item \textbf{Outliers:} Outliers are base frequencies significantly different from the majority. For example, frequencies above \texttt{4.5 GHz} might be outliers if most CPUs are below this threshold.
+				\item \textbf{Symmetry:} The position of the median and whisker lengths reveal if the data is skewed. A median closer to one end indicates a skew in base frequencies.
+			\end{itemize}
+		\end{itemize}
+	\end{itemize}
+	
+	\subsection{Max turbo frequency}
+	\begin{itemize}
+		\item \textbf{Code:}
+		\begin{lstlisting}[basicstyle=\ttfamily, frame=single,language=R]
+			# Create a histogram of Max_Turbo_Frequency
+			hist(cpu_df$Max_Turbo_Frequency, 
+			breaks = 50, xlim = c(0, 4.500e+09), ylim = c(0, 150), 
+			xlab = "Hz", ylab = "Frequency", 
+			main = "Histogram of \n Max_Turbo_Frequency", 
+			col = "pink", border = "black")
+			# Create a box plot of Max_Turbo_Frequency
+			boxplot(cpu_df$Max_Turbo_Frequency, 
+			main = "Boxplot of \n Max_Turbo_Frequency", 
+			ylab = "Frequency (Hz)", col = "lightblue", border = "black")
+		\end{lstlisting}
+		\item \textbf{Result:}
+		\begin{figure}[h]
+			\centering
+			\includegraphics[scale=0.5]{max_turbo-freq.png}    %rescale
+			\label{fig:enter-label}
+		\end{figure}
+		\item \textbf{Comments:}
+		\begin{itemize}
+			\item \textbf{Histogram of \texttt{Max\_Turbo\_Frequency}:}
+			\begin{itemize}
+				\item \textbf{Shape of the Distribution:} The histogram shows how turbo frequencies are distributed. Peaks at common turbo speeds like \texttt{4.0 GHz} or \texttt{5.0 GHz} indicate typical boost capabilities.
+				\item \textbf{Spread of the Data:} The width of the histogram indicates the range of turbo frequencies. A broad range suggests diverse maximum turbo frequencies among CPUs.
+				\item \textbf{Frequency of Turbo Frequencies:} Taller bars represent more common turbo frequencies, while shorter bars show less frequent speeds. For instance, \texttt{4.5 GHz} might be common, while \texttt{5.5 GHz} is less frequent.
+			\end{itemize}
+			\item \textbf{Box Plot of \texttt{Max\_Turbo\_Frequency}:}
+			\begin{itemize}
+				\item \textbf{Median Turbo Frequency:} The median turbo frequency is represented by the thick line in the box. If the median is \texttt{4.5 GHz}, it suggests that half of the CPUs have turbo frequencies below \texttt{4.5 GHz}, and half are higher.
+				\item \textbf{Interquartile Range (IQR):} The length of the box shows the variability of turbo frequencies. A longer box indicates a wide range of turbo frequencies, while a shorter box suggests less variability.
+				\item \textbf{Outliers:} Outliers are turbo frequencies significantly different from the majority. For example, frequencies above \texttt{5.0 GHz} might be outliers if most CPUs have lower boosts.
+				\item \textbf{Symmetry:} The position of the median and whisker lengths reveal if the data is skewed. A median closer to one end indicates skewness in turbo frequencies.
+			\end{itemize}
+		\end{itemize}
+	\end{itemize}
+	\subsection{Graphic base frequency}
+	\begin{itemize}
+		\item \textbf{Code:}
+		\begin{lstlisting}[basicstyle=\ttfamily, frame=single,language=R]
+			# Create a histogram of Graphics_Base_Frequency
+			hist(cpu_df$Graphics_Base_Frequency, 
+			breaks = 50, xlim = c(0, 20000000000),  ylim = c(0, 3000), 
+			xlab = "Hz", ylab = "Frequency", 
+			main = "Histogram of \n Graphics_Base_Frequency", 
+			col = "pink", border = "black")
+			# Create a box plot of Graphics_Base_Frequency
+			boxplot(cpu_df$Graphics_Base_Frequency, 
+			main = "Boxplot of \n Graphics_Base_Frequency", 
+			ylab = "Frequency (Hz)", col = "lightblue", border = "black")
+		\end{lstlisting}
+		\item \textbf{Result:}
+		\begin{figure}[h]
+			\centering
+			\includegraphics[scale=0.5]{graphic-base_freq.png}  %rescale
+			\label{fig:enter-label}
+		\end{figure}
+		\item \textbf{Comments:}
+		\begin{itemize}
+			\item \textbf{Histogram of \texttt{Graphics\_Base\_Frequency}:}
+			\begin{itemize}
+				\item \textbf{Shape of the Distribution:} The histogram shows the distribution of base frequencies for integrated graphics. Peaks at common frequencies like \texttt{300 MHz} or \texttt{500 MHz} indicate typical graphics base speeds
+				\item \textbf{Spread of the Data:} The width indicates the range of base frequencies. A broad range suggests a variety of base frequencies for graphics.
+				\item \textbf{Frequency of Graphics Base Frequencies:} Taller bars represent more common base frequencies, while shorter bars indicate less frequent frequencies. For example, \texttt{400 MHz} might be common, while \texttt{600 MHz} is less frequent.
+			\end{itemize}
+			\item \textbf{Box Plot of \texttt{Graphics\_Base\_Frequency}:}
+			\begin{itemize}
+				\item \textbf{Median Graphics Base Frequency:} The median base frequency for graphics is shown by the thick line in the box. If the median is \texttt{400 MHz}, it suggests that half of the CPUs have graphics base frequencies below \texttt{400 MHz}, and half have more.
+				\item \textbf{Interquartile Range (IQR):} The length of the box represents the variability in graphics base frequencies. A longer box indicates a wider range of frequencies, while a shorter box suggests less variability.
+				\item \textbf{Outliers:} Outliers are graphics base frequencies significantly different from the majority. For instance, frequencies above \texttt{600 MHz} might be outliers if most GPUs have lower base frequencies.
+				\item \textbf{Symmetry:} The position of the median and whisker lengths reveal if the distribution is skewed. A median closer to one end indicates skewness in graphics base frequencies.
+			\end{itemize}
+		\end{itemize}
+	\end{itemize}
+	\subsection{Graphic max dynamic frequency}
+	\begin{itemize}
+		\item \textbf{Code:}
+		\begin{lstlisting}[basicstyle=\ttfamily, frame=single,language=R]
+			# Create a histogram of Graphics_Max_Dynamic_Frequency
+			hist(cpu_df$Graphics_Max_Dynamic_Frequency, 
+			breaks = 50, xlim = c(0, 1.350e+09), ylim = c(0, 150), 
+			xlab = "Hz", ylab = "Frequency", 
+			main = "Histogram of \n Graphics_Max_Dynamic_Frequency", 
+			col = "pink", border = "black")
+			# Create a box plot of Graphics_Max_Dynamic_Frequency
+			boxplot(cpu_df$Graphics_Max_Dynamic_Frequency, 
+			main = "Boxplot of \n Graphics_Max_Dynamic_Frequency", 
+			ylab = "Frequency (Hz)", col = "lightblue", border = "black")
+		\end{lstlisting}
+		\item \textbf{Result:}
+		\begin{figure}[h]
+			\centering
+			\includegraphics[scale=0.5]{graphic-max_dynamic_freq.png}  %rescale
+			\label{fig:enter-label}
+		\end{figure}
+		\item \textbf{Comments:}
+		\begin{itemize}
+			\item \textbf{Histogram of \texttt{Graphics\_Max\_Dynamic\_Frequency}:}
+			\begin{itemize}
+				\item \textbf{Shape of the Distribution:} The histogram shows the distribution of maximum dynamic frequencies for integrated graphics. Peaks at frequencies like \texttt{1.0 GHz} or \texttt{1.5 GHz} indicate common maximum speeds.
+				\item \textbf{Spread of the Data:} The width of the histogram indicates the range of maximum dynamic frequencies. A broad range suggests a variety of maximum speeds.
+				\item \textbf{Frequency of Graphics Base Frequencies:} Taller bars represent more common frequencies, while shorter bars indicate less frequent ones. For example, \texttt{1.2 GHz} might be common, while \texttt{1.8 GHz} is less frequent.
+			\end{itemize}
+			\item \textbf{Box Plot of \texttt{Graphics\_Max\_Dynamic\_Frequency}:}
+			\begin{itemize}
+				\item \textbf{Median Graphics Max Dynamic Frequency:} The median maximum dynamic frequency is shown by the thick line inside the box. If the median is \texttt{1.4 GHz}, it suggests that half of the CPUs have frequencies below \texttt{1.4 GHz}, and half have more.
+				\item \textbf{Interquartile Range (IQR):} The length of the box represents the variability in maximum dynamic frequencies. A longer box indicates a wider range of frequencies, while a shorter box suggests less variability.
+				\item \textbf{Outliers:} Outliers are frequencies significantly different from the majority. For instance, values above \texttt{1.6 GHz} might be outliers if most GPUs have lower frequencies.
+				\item \textbf{Symmetry:} The position of the median and whisker lengths reveal if the distribution is skewed. A median closer to one end indicates skewness in maximum dynamic frequencies.
+			\end{itemize}
+		\end{itemize}
+	\end{itemize}
+	\subsection{Graphics video max memory}
+	\begin{itemize}
+		\item \textbf{Code:}
+		\begin{lstlisting}[basicstyle=\ttfamily, frame=single,language=R]
+			# Create a histogram of Graphics_Video_Max_Memory
+			hist(cpu_df$Graphics_Video_Max_Memory, 
+			breaks = 50, xlim = c(0, 6.40e+10), ylim = c(0, 150),
+			xlab = "Bytes", ylab = "Frequency", 
+			main = "Histogram of \n Graphics_Video_Max_Memory", 
+			col = "pink", border = "black")
+			# Create a box plot of Graphics_Video_Max_Memory
+			boxplot(cpu_df$Graphics_Video_Max_Memory, 
+			main = "Boxplot of \n Graphics_Video_Max_Memory", 
+			ylab = "Memory Size (Bytes)", col = "lightblue", border = "black")
+		\end{lstlisting}
+		\item \textbf{Result:}
+		\begin{figure}[h]
+			\centering
+			\includegraphics[scale=0.45]{graphic-max_mem.png}   %rescale
+			\label{fig:enter-label}
+		\end{figure}
+		\item \textbf{Comments:}
+		\begin{itemize}
+			\item \textbf{Histogram of \texttt{Graphics\_Video\_Max\_Memory}:}
+			\begin{itemize}
+				\item \textbf{Shape of the Distribution:} The histogram shows the distribution of maximum video memory for integrated graphics. Peaks at values like \texttt{1 GB} or \texttt{2 GB} indicate common maximum memory sizes.
+				\item \textbf{Spread of the Data:} The width indicates the range of video memory sizes. A broad range suggests that GPUs support various amounts of video memory.
+				\item \textbf{Frequency of Graphics Video Max Memory:} Taller bars represent more common memory sizes, while shorter bars indicate less frequent sizes. For example, \text{2 GB} might be common, while \texttt{4 GB} is less frequent.
+			\end{itemize}
+			\item \textbf{Box Plot of \texttt{Graphics\_Video\_Max\_Memory}:}
+			\begin{itemize}
+				\item \textbf{Median Graphics Video Max Memory:} The median maximum video memory is shown by the thick line inside the box. If the median is \texttt{2 GB}, it suggests that half of the GPUs have memory sizes below \texttt{2 GB}, and half have more.
+				\item \textbf{Interquartile Range (IQR):} The length of the box represents the variability in video memory sizes. A longer box indicates a wider range of supported memory sizes, while a shorter box suggests less variability.
+				\item \textbf{Outliers:} Outliers are memory sizes significantly different from the majority. For instance, \texttt{4 GB} or \texttt{8 GB} might be outliers if most GPUs have less memory.
+				\item \textbf{Symmetry:} The position of the median and the length of the whiskers reveal if the distribution is skewed. A median closer to one end indicates skewness in video memory sizes.
+			\end{itemize}
+		\end{itemize}
+	\end{itemize}
+	\subsection{Cache}
+	\begin{itemize}
+		\item \textbf{Code:}
+		\begin{lstlisting}[basicstyle=\ttfamily, frame=single,language=R]
+			#Diagram of Cache
+			hist(cpu_df$Cache, breaks = 50, xlab = "Byte", ylab = "Frequency", ylim = c(0, 600),
+			main = "Histogram of Cache")
+			boxplot(cpu_df$Cache, main = "Boxplot of Cache")
+		\end{lstlisting}
+		\item \textbf{Result:}
+		\begin{figure}[h]
+			\centering
+			\includegraphics[scale=0.6]{cache.png}  %rescale
+			\label{fig:enter-label}
+		\end{figure}
+		\item \textbf{Comments:}
+		\begin{itemize}
+			\item \textbf{Histogram of \texttt{Cache}:}
+			\begin{itemize}
+				\item \textbf{Shape of the Distribution:} The histogram illustrates the distribution of cache sizes. Peaks at sizes like \texttt{8 MB} or \texttt{12 MB} show common cache sizes among CPUs.
+				\item \textbf{Spread of the Data:} The width indicates the range of cache sizes. A broad range suggests that CPUs with various cache sizes are included.
+				\item \textbf{Frequency of Cache Sizes:} Taller bars on the y-axis represent more common cache sizes. For instance, \texttt{16 MB} might be common, while larger sizes like \texttt{32 MB} are less frequent.
+			\end{itemize}
+			\item \textbf{Box Plot of \texttt{Cache}:}
+			\begin{itemize}
+				\item \textbf{Median Cache Size:} The median cache size is shown by the thick line inside the box. If the median is \texttt{12 MB}, it indicates that half of the CPUs have cache sizes below \text{12 MB}, and half have more.
+				\item \textbf{Interquartile Range (IQR):} The box length shows the variability in cache sizes. A longer box indicates a wider range of cache sizes, while a shorter box suggests less variability.
+				\item \textbf{Outliers:} Outliers are cache sizes significantly different from the majority. For instance, \texttt{64 MB} might be an outlier if most CPUs have less cache.
+				\item \textbf{Symmetry:} The position of the median and the length of the whiskers reveal if the distribution is skewed. A median closer to one end indicates a skew in cache sizes.
+			\end{itemize}
+		\end{itemize}
+	\end{itemize}
+	\subsection{BUS speed}
+	\begin{itemize}
+		\item \textbf{Code:}
+		\begin{lstlisting}[basicstyle=\ttfamily, frame=single,language=R]
+			#Diagram of Bus speed
+			hist(cpu_df$Bus_Speed, breaks = 50, xlim = c(0, 10000000000), ylim = c(0, 1000), 
+			xlab = "Hz/s", ylab = "Frequency", main = "Histogram of Bus_Speed")
+			boxplot(cpu_df$Bus_Speed, main = "Boxplot of Bus_Speed")
+		\end{lstlisting}
+		\item \textbf{Result:}
+		\begin{figure}[h]
+			\centering
+			\includegraphics[scale=0.5]{bus-speed.png}  %rescale
+			\label{fig:enter-label}
+		\end{figure}
+		\item \textbf{Comments:}
+		\begin{itemize}
+			\item \textbf{Histogram of \texttt{Bus\_Speed}:}
+			\begin{itemize}
+				\item \textbf{Shape of the Distribution:} The histogram shows the distribution of bus speeds. Peaks at common speeds like \texttt{1.6 GHz} or \texttt{2.0 GHz} indicate typical speeds used in CPUs.
+				\item \textbf{Spread of the Data:} The width of the histogram indicates the range of bus speeds. A wide range suggests diverse bus speeds across CPUs.
+				\item \textbf{Frequency of Bus Speed:} Taller bars represent more common bus speeds, while shorter bars indicate less frequent speeds. For example, \texttt{1.8 GHz} might be common, while \texttt{2.5 GHz} is less frequent.
+			\end{itemize}
+			\item \textbf{Box Plot of \texttt{Bus\_Speed}:}
+			\begin{itemize}
+				\item \textbf{Median Bus Speed:} The median bus speed is shown by the thick line in the box. If the median is \texttt{1.8 GHz}, it suggests that half of the CPUs have bus speeds below \texttt{1.8 GHz}, and half are higher.
+				\item \textbf{Interquartile Range (IQR):} The length of the box represents the variability in bus speeds. A longer box indicates a wider range of bus speeds, while a shorter box indicates less variability.
+				\item \textbf{Outliers:} Outliers are bus speeds significantly different from the majority. For instance, speeds above \texttt{2.2 GHz} might be outliers if most CPUs are below this threshold.
+				\item \textbf{Symmetry:} The position of the median and whisker lengths reveal if the data is skewed. A median closer to one end indicates skewness in bus speeds.
+			\end{itemize}
+		\end{itemize}
+	\end{itemize}
+	\subsection{Max memory size}
+	\begin{itemize}
+		\item \textbf{Code:}
+		\begin{lstlisting}[basicstyle=\ttfamily, frame=single,language=R]
+			#Diagram of Max memory size
+			hist(cpu_df$Max_Memory_Size, breaks = 50, ylim = c (0, 1000), xlab = "Byte", 
+			ylab = "Frequency", main = "Histogram of \n Max_Memory_Size")
+			boxplot(cpu_df$Max_Memory_Size, main = "Boxplot of \n Max_Memory_Size")
+		\end{lstlisting}
+		\item \textbf{Result:}
+		\begin{figure}[h]
+			\centering
+			\includegraphics[scale=0.45]{max_memo_size.png} %rescale
+			\label{fig:enter-label}
+		\end{figure}
+		\item \textbf{Comments:}
+		\begin{itemize}
+			\item \textbf{Histogram of \texttt{Max\_Memory\_Size}:}
+			\begin{itemize}
+				\item \textbf{Shape of the Distribution:} The histogram shows the distribution of maximum memory sizes supported by CPUs. Peaks at values like \texttt{64 GB} or \texttt{128 GB} indicate common maximum memory capacities.
+				\item \textbf{Spread of the Data:} The width of the histogram indicates the range of supported memory sizes. A broad range suggests CPUs supporting a wide variety of maximum memory sizes.
+				\item \textbf{Frequency of Memory Sizes:} Taller bars represent more common memory sizes, while shorter bars indicate less frequent sizes. For example, \text{128 GB} might be common, while \text{256 GB} is less frequent.
+			\end{itemize}
+			\item \textbf{Box Plot of \texttt{Max\_Memory\_Size}:}
+			\begin{itemize}
+				\item \textbf{Median Memory Size:} The median maximum memory size is shown by the thick line inside the box. If the median is \texttt{128 GB}, it suggests that half of the CPUs support up to \texttt{128 GB} of memory, and half support more.
+				\item \textbf{Interquartile Range (IQR):} The length of the box represents the variability in memory sizes. A longer box indicates a wider range of maximum memory sizes, while a shorter box suggests less variability.
+				\item \textbf{Outliers:} Outliers are maximum memory sizes significantly different from the majority. For instance, \texttt{512 GB} might be an outlier if most CPUs support less memory.
+				\item \textbf{Symmetry:} The position of the median and whisker lengths reveal if the distribution is skewed. A median closer to one end indicates skewness in memory sizes.
+			\end{itemize}
+		\end{itemize}
+	\end{itemize}
+	\subsection{Max memory bandwidth}
+	\begin{itemize}
+		\item \textbf{Code:}
+		\begin{lstlisting}[basicstyle=\ttfamily, frame=single,language=R]
+			#Diagram of Max memory bandwidth
+			hist(cpu_df$Max_Memory_Bandwidth, breaks = 50, 
+			ylim = c (0, 1400), xlab = "GB", ylab = "Frequency",
+			main = "Histogram of \n Max_Memory_Bandwidth")
+			boxplot(cpu_df$Max_Memory_Bandwidth, main = "Boxplot of \n Max_Memory_Bandwidth")
+		\end{lstlisting}
+		\item \textbf{Result:}
+		\begin{figure}[h]
+			\centering
+			\includegraphics[scale=0.6]{max_memo_bandwidth.png} %rescale
+			\label{fig:enter-label}
+		\end{figure}
+		\item \textbf{Comments:}
+		\begin{itemize}
+			\item \textbf{Histogram of \texttt{Max\_Memory\_Bandwidth}:}
+			\begin{itemize}
+				\item \textbf{Shape of the Distribution:} The histogram shows the distribution of maximum memory bandwidth values. Peaks at values like \texttt{25 GB/s} or \texttt{40 GB/s} indicate common bandwidth levels.
+				\item \textbf{Spread of the Data:} The width indicates the range of memory bandwidth values. A broad range suggests CPUs supporting a variety of bandwidth levels.
+				\item \textbf{Frequency of Memory Bandwidth:} Taller bars represent more common bandwidth levels, while shorter bars indicate less frequent levels. For example, \texttt{30 GB/s} might be common, while \texttt{50 GB/s} is less frequent.
+			\end{itemize}
+			\item \textbf{Box Plot of \texttt{Max\_Memory\_Bandwidth}:}
+			\begin{itemize}
+				\item \textbf{Median Memory Bandwidth:} The median memory bandwidth is shown by the thick line in the box. If the median is \texttt{30 GB/s}, it suggests that half of the CPUs have bandwidth below \texttt{30 GB/s}, and half have more.
+				\item \textbf{Interquartile Range (IQR):} The length of the box represents the variability in memory bandwidth. A longer box indicates a wider range of supported bandwidths, while a shorter box suggests less variability.
+				\item \textbf{Outliers:} Outliers are memory bandwidth values significantly different from the majority. For instance, values above \texttt{50 GB/s} might be outliers if most CPUs have lower bandwidth.
+				\item \textbf{Symmetry:} The position of the median and the length of the whiskers reveal if the distribution is skewed. A median closer to one end indicates skewness in memory bandwidth. 
+			\end{itemize}
+		\end{itemize}
+	\end{itemize}
+	\subsection{Lithography}
+	\begin{itemize}
+		\item \textbf{Code:}
+		\begin{lstlisting}[basicstyle=\ttfamily, frame=single,language=R]
+			# Create a histogram of Lithography
+			hist(cpu_df$Lithography, 
+			breaks = 50, xlab = "Nanometers (nm)", ylab = "Frequency", 
+			main = "Histogram of \n Lithography", col = "pink", border = "black")
+			# Create a box plot of Lithography
+			boxplot(cpu_df$Lithography, 
+			main = "Boxplot of \n Lithography", ylab = "Lithography (nm)", col = "lightblue", border = "black")
+		\end{lstlisting}
+		\item \textbf{Result:}
+		\begin{figure}[h]
+			\centering
+			\includegraphics[scale=0.6]{lithography.png}    %rescale
+			\label{fig:enter-label}
+		\end{figure}
+		\item \textbf{Comments:}
+		\begin{itemize}
+			\item \textbf{Histogram of \texttt{Lithography}:}
+			\begin{itemize}
+				\item \textbf{Shape of the Distribution:} The histogram illustrates how lithography sizes are distributed. Peaks at specific sizes, such as \texttt{14nm} or \texttt{10nm}, indicate common manufacturing processes used in many CPUs.
+				\item \textbf{Spread of the Data:} The histogram’s width shows the range of lithography sizes. If there are several distinct peaks, it suggests the use of various lithography processes over time.
+				\item \textbf{Frequency of Memory Bandwidth:} Taller bars on the y-axis represent more common lithography sizes, while shorter bars indicate less frequent sizes. For example, if \texttt{14nm} and \texttt{7nm} are common, they will appear as high bars.
+			\end{itemize}
+			\item \textbf{Box Plot of \texttt{Lithography}:}
+			\begin{itemize}
+				\item \textbf{Median Lithography Size:} The median, represented by the thick line inside the box, shows the central tendency of lithography sizes. For instance, if the median is \texttt{14nm}, this size is typical for many CPUs.
+				\item \textbf{Interquartile Range (IQR):} The length of the box indicates the middle 50\% of lithography sizes. A shorter box suggests a smaller range of common sizes, while a longer box indicates greater variability.
+				\item \textbf{Outliers:} Outliers are points outside the whiskers and represent lithography sizes significantly different from the rest. For instance, very large or very small sizes compared to the median may appear as outliers.
+				\item \textbf{Symmetry:} The position of the median and the whisker lengths reveal if the distribution is symmetric. A median closer to one end of the box suggests a skew, with more CPUs using either smaller or larger lithography sizes.
+			\end{itemize}
+		\end{itemize}
+	\end{itemize}
+	\subsection{Thermal design power (TDP)}
+	\begin{itemize}
+		\item \textbf{Code:}
+		\begin{lstlisting}[basicstyle=\ttfamily, frame=single,language=R]
+			# Create a histogram of TDP
+			hist(cpu_df$TDP, 
+			breaks = 50, xlab = "Watts (W)",  ylab = "Frequency", main = "Histogram of \n TDP", 
+			col = "pink", border = "black")
+			# Create a box plot of TDP
+			boxplot(cpu_df$TDP, 
+			main = "Boxplot of \n TDP", ylab = "TDP (W)", col = "lightblue", border = "black")
+		\end{lstlisting}
+		\item \textbf{Result:}
+		\begin{figure}[h]
+			\centering
+			\includegraphics[scale=0.5]{TDP.png}    %rescale
+			\label{fig:enter-label}
+		\end{figure}
+		\item \textbf{Comments:}
+		\begin{itemize}
+			\item \textbf{Histogram of \texttt{TDP}:}
+			\begin{itemize}
+				\item \textbf{Shape of the Distribution:} The histogram shows the distribution of Thermal Design Power (TDP) values. Peaks at values like \texttt{65W} or \texttt{95W} indicate common power consumption levels.
+				\item \textbf{Spread of the Data:} The width of the histogram indicates the range of TDP values. A broad range suggests diverse power requirements among CPUs.
+				\item \textbf{Frequency of TDP:} Taller bars represent more common TDP values, while shorter bars indicate less frequent power levels. For example, \texttt{95W} might be common, while \texttt{125W} is less frequent.
+			\end{itemize}
+			\item \textbf{Box Plot of \texttt{TDP}:}
+			\begin{itemize}
+				\item \textbf{Median TDP:} The median TDP is shown by the thick line in the box. If the median is \texttt{95W}, it suggests that half of the CPUs have TDP values below \texttt{95W}, and half are higher.
+				\item \textbf{Interquartile Range (IQR):} The length of the box represents the variability in TDP values. A longer box indicates a wider range of power requirements, while a shorter box suggests less variability.
+				\item \textbf{Outliers:} Outliers are TDP values significantly different from the majority. For instance, values above \texttt{125W} might be outliers if most CPUs have lower power requirements.
+				\item \textbf{Symmetry:} The position of the median and the length of the whiskers reveal if the data is skewed. A median closer to one end indicates skewness in TDP values.
+			\end{itemize}
+		\end{itemize}
+	\end{itemize}
+	\subsection{Max number of Memory channels}
+	\begin{itemize}
+		\item \textbf{Code:}
+		\begin{lstlisting}[basicstyle=\ttfamily, frame=single,language=R]
+			# Create a histogram of Max_nb_of_Memory_Channels
+			hist(cpu_df$Max_nb_of_Memory_Channels, 
+			breaks = 50, xlab = "Number of Channels", ylab = "Frequency", 
+			main = "Histogram of \n Max_nb_of_Memory_Channels", 
+			col = "pink", border = "black")
+			# Create a box plot of Max_nb_of_Memory_Channels
+			boxplot(cpu_df$Max_nb_of_Memory_Channels, 
+			main = "Boxplot of \n Max_nb_of_Memory_Channels", 
+			ylab = "Max Number of Memory Channels", col = "lightblue", border = "black")
+		\end{lstlisting}
+		\item \textbf{Result:}
+		\begin{figure}[h]
+			\centering
+			\includegraphics[scale=0.6]{max-memo_channels.png}  %rescale
+			\label{fig:enter-label}
+		\end{figure}
+		\item \textbf{Comments:}
+		\begin{itemize}
+			\item \textbf{Histogram of \texttt{Max\_nb\_of\_Memory\_Channels}:}
+			\begin{itemize}
+				\item \textbf{Shape of the Distribution:} The histogram shows the distribution of the number of memory channels supported by CPUs. Peaks at common values like \texttt{2} or \texttt{4} indicate typical channel configurations.
+				\item \textbf{Spread of the Data:} The width indicates the range of supported memory channels. A broad range suggests CPUs with varying channel support.
+				\item \textbf{Frequency of Memory Bandwidth:} Taller bars represent more common memory channel counts, while shorter bars indicate less frequent configurations. For example, \texttt{2 channels} might be common, while \texttt{8 channels} is less frequent.
+			\end{itemize}
+			\item \textbf{Box Plot of \texttt{Max\_nb\_of\_Memory\_Channels}:}
+			\begin{itemize}
+				\item \textbf{Median Number of Memory Channels:} The median number of memory channels is shown by the thick line inside the box. If the median is \texttt{4}, it suggests that half of the CPUs support up to \texttt{4 channels}, and half support more.
+				\item \textbf{Interquartile Range (IQR):} The length of the box represents the variability in channel counts. A longer box indicates a wider range of supported channels, while a shorter box suggests less variability.
+				\item \textbf{Outliers:} Outliers are channel counts significantly different from the majority. For instance, \texttt{8 channels} might be an outlier if most CPUs support fewer channels.
+				\item \textbf{Symmetry:} The position of the median and the whisker lengths reveal if the distribution is skewed. A median closer to one end indicates skewness in channel counts.
+			\end{itemize}
+		\end{itemize}
+	\end{itemize}
+	\subsection{CPU temperature (T)}
+	\begin{itemize}
+		\item \textbf{Code:}
+		\begin{lstlisting}[basicstyle=\ttfamily, frame=single,language=R]
+			# Create a histogram of Temperature (T)
+			hist(cpu_df$T, 
+			breaks = 50, xlab = "Temperature (degree of Celsius)", ylab = "Frequency", 
+			main = "Histogram of \n CPU Temperature", col = "pink", border = "black")
+			# Create a box plot of Temperature (T)
+			boxplot(cpu_df$T, 
+			main = "Boxplot of \n CPU Temperature", ylab = "Temperature (degree of Celsius)", 
+			col = "lightblue", border = "black")
+		\end{lstlisting}
+		\item \textbf{Result:}
+		\begin{figure}[h]
+			\centering
+			\includegraphics[scale=0.5]{cpu-temp.png}   %rescale
+			\label{fig:enter-label}
+		\end{figure}
+		\item \textbf{Comments:}
+		\begin{itemize}
+			\item \textbf{Histogram of \texttt{T}:}
+			\begin{itemize}
+				\item \textbf{Shape of the Distribution:} The histogram displays the distribution of operating temperatures. Peaks at temperatures like \texttt{70°C} or \texttt{80°C} indicate common operating ranges.
+				\item \textbf{Spread of the Data:} The width of the histogram shows the range of temperatures. A broad range suggests CPUs operate at various temperature levels.
+				\item \textbf{Frequency of Temperature:} Taller bars represent more common temperature ranges, while shorter bars indicate less frequent temperatures. For example, \texttt{75°C} might be common, while \texttt{90°C} is less frequent.
+			\end{itemize}
+			\item \textbf{Box Plot of \texttt{T}:}
+			\begin{itemize}
+				\item \textbf{Median Temperature:} The median temperature is shown by the thick line in the box. If the median is \texttt{75°C}, it suggests that half of the CPUs operate at temperatures below \texttt{75°C}, and half at higher temperatures.
+				\item \textbf{Interquartile Range (IQR):} The length of the box represents the variability in temperatures. A longer box indicates a wider range of operating temperatures, while a shorter box suggests less variability.
+				\item \textbf{Outliers:} Outliers are temperatures significantly different from the majority. For instance, temperatures above \texttt{85°C} might be outliers if most CPUs operate at lower temperatures.
+				\item \textbf{Symmetry:} The position of the median and the whisker lengths reveal if the distribution is skewed. A median closer to one end indicates skewness in operating temperatures.
+			\end{itemize}
+		\end{itemize}
+	\end{itemize}
+	\subsection{Max number of PCI Express lanes}
+	\begin{itemize}
+		\item \textbf{Code:}
+		\begin{lstlisting}[basicstyle=\ttfamily, frame=single,language=R]
+			# Create a histogram of Max_nb_of_PCI_Express_Lanes
+			hist(cpu_df$Max_nb_of_PCI_Express_Lanes, 
+			breaks = 50, xlab = "Number of PCI Express Lanes", ylab = "Frequency", 
+			main = "Histogram of \n Max_nb_of_PCI_Express_Lanes", 
+			col = "pink", border = "black")
+			# Create a box plot of Max_nb_of_PCI_Express_Lanes
+			boxplot(cpu_df$Max_nb_of_PCI_Express_Lanes, 
+			main = "Boxplot of \n Max_nb_of_PCI_Express_Lanes", 
+			ylab = "Number of PCI Express Lanes", col = "lightblue", border = "black")
+		\end{lstlisting}
+		\item \textbf{Result:}
+		\begin{figure}[h]
+			\centering
+			\includegraphics[scale=0.5]{max-num-PCI-lanes.png}  %rescale
+			\label{fig:enter-label}
+		\end{figure}
+		\item \textbf{Comments:}
+		\begin{itemize}
+			\item \textbf{Histogram of \texttt{Max\_nb\_of\_PCI\_Express\_Lanes}:}
+			\begin{itemize}
+				\item \textbf{Shape of the Distribution:} The histogram shows the distribution of PCI Express lanes supported by CPUs. Peaks at values like \texttt{16} or \texttt{24} indicate common configurations.
+				\item \textbf{Spread of the Data:} The width of the histogram indicates the range of PCI Express lanes. A broad range suggests diverse support for PCI Express lanes.
+				\item \textbf{Frequency of PCI Express Lanes:} Taller bars represent more common configurations, while shorter bars indicate less frequent ones. For example, \texttt{16 lanes} might be common, while \texttt{32 lanes} are less frequent.
+			\end{itemize}
+			\item \textbf{Box Plot of \texttt{Max\_nb\_of\_PCI\_Express\_Lanes}:}
+			\begin{itemize}
+				\item \textbf{Median PCI Express Lanes:} The median number of PCI Express lanes is shown by the thick line in the box. If the median is \texttt{24}, it suggests that half of the CPUs support up to \texttt{24 lanes}, and half support more.
+				\item \textbf{Interquartile Range (IQR):} The length of the box represents the variability in PCI Express lane counts. A longer box indicates a wider range of supported lanes, while a shorter box suggests less variability.
+				\item \textbf{Outliers:} Outliers are counts significantly different from the majority. For instance, \texttt{40 lanes} might be an outlier if most CPUs support fewer lanes.
+				\item \textbf{Symmetry:} The position of the median and the whisker lengths reveal if the distribution is skewed. A median closer to one end indicates skewness in PCI Express lane counts.
+			\end{itemize}
+		\end{itemize}
+	\end{itemize}
+	\section{Inferential statistics}
+	\subsection{Read data}
+	\begin{itemize}
+		\item Instructions: Use the \texttt{read.table()} command to read data from a file and store the data in the variable \texttt{test}.
+		\item
+		Code:
+		\begin{lstlisting}[language=R]
+			cpu_data = read.csv("G:\\Downloads\\Intel_CPUs.csv" , na.strings = c("", "N/A")) 
+			missing_data <- apply(is.na(cpu_data), 2, sum)
+			print(missing_data)
+			data_feature <- c('Product_Collection',
+			'Launch_Date',
+			'Lithography',
+			'Recommended_Customer_Price', 
+			'nb_of_Cores', 'nb_of_Threads', 
+			'Processor_Base_Frequency',
+			'Max_Turbo_Frequency',
+			'Cache', 'Bus_Speed','TDP',
+			'Max_Memory_Size',
+			'Max_nb_of_Memory_Channels', 
+			'Max_Memory_Bandwidth',
+			'Graphics_Base_Frequency', 
+			'Graphics_Max_Dynamic_Frequency',
+			'Graphics_Video_Max_Memory',
+			'Max_nb_of_PCI_Express_Lanes',
+			'T','Intel_Hyper_Threading_Technology_')
+			cpu_df <- cpu_data[, data_feature, drop = FALSE]
+			head (cpu_data)
+		\end{lstlisting}
+		\item Result:
+	\end{itemize}
+	\begin{figure}[h]
+		\centering
+		\includegraphics[scale=0.3]{result-read.png}  %rescale
+		\label{fig:enter-label}
+	\end{figure}
+	Because the \texttt{test} variable is large, we will use the \texttt{head()} function to print the first 6 lines of the \texttt{test} variable as an example.
+	\subsection{Data cleaning}
+	Among the variables being examined, some contain many missing values (\texttt{NA} - Not Available). We use the following command to check and output a table that shows the percentage of missing values for each variable.
+	\begin{itemize}
+		\item Code:
+		\begin{lstlisting}[language=R]
+			launch_date_replacements <- c('Q1\'00', 'Q2\'00', 'Q3\'00', 'Q4\'00', 'Q1\'01', 'Q2\'01', 'Q3\'01', 'Q4\'01', 'Q1\'02', 'Q2\'02', 'Q3\'02', 'Q4\'02', 'Q1\'03', 'Q2\'03', 'Q3\'03', 'Q4\'03', 'Q1\'04', 'Q2\'04', 'Q3\'04', 'Q4\'04', 'Q1\'05', 'Q2\'05', 'Q3\'05', 'Q4\'05', 'Q1\'06', 'Q2\'06', 'Q3\'06', 'Q4\'06', 'Q1\'07', 'Q2\'07', 'Q3\'07', 'Q4\'07', 'Q1\'08', 'Q2\'08', 'Q3\'08', 'Q4\'08', 'Q1\'09', 'Q2\'09', 'Q3\'09', 'Q4\'09', 'Q1\'10', 'Q2\'10', 'Q3\'10', 'Q4\'10', 'Q1\'11', 'Q2\'11', 'Q3\'11', 'Q4\'11', 'Q1\'12', 'Q2\'12', 'Q3\'12', 'Q4\'12', 'Q1\'13', 'Q2\'13', 'Q3\'13', 'Q4\'13', 'Q1\'14', 'Q2\'14', 'Q3\'14', 'Q4\'14', 'Q1\'15', 'Q2\'15', 'Q3\'15', 'Q4\'15', 'Q1\'16', 'Q2\'16', 'Q3\'16', 'Q4\'16', 'Q1\'17', 'Q2\'17', 'Q3\'17', 'Q4\'17', 'Q1\'18', 'Q2\'18', 'Q3\'18', 'Q4\'18', 'Q1 \'15', '04\'16', 'Q1\'99', 'Q2\'99')
+			replacement_values <- c(seq(1, 19, 0.25), 15.75, 17.0, 0.0, 0.25)
+			# Perform replacement
+			cpu_df$Launch_Date <- ifelse(cpu_df$Launch_Date %in% launch_date_replacements, 
+			replacement_values[match(cpu_df$Launch_Date, launch_date_replacements)], 
+			cpu_df$Launch_Date)
+			cpu_df <- cpu_df %>%
+			mutate(Product_Collection = gsub('.*Core.*', 'Core', Product_Collection),
+			Product_Collection = gsub('.*X-series.*', 'X-series', Product_Collection),
+			Product_Collection = gsub('.*Celeron.*', 'Celeron', Product_Collection),
+			Product_Collection = gsub('.*Pentium.*', 'Pentium', Product_Collection),
+			Product_Collection = gsub('.*Quark.*', 'Quark', Product_Collection),
+			Product_Collection = gsub('.*Core. [mM].*', 'm', Product_Collection),
+			Product_Collection = gsub('.*Atom.*', 'Atom', Product_Collection),
+			Product_Collection = gsub('.*Itanium.*', 'Itanium', Product_Collection),
+			Product_Collection = gsub('.*Xeon.*', 'Xeon', Product_Collection))
+			PriceProcessor <- function(x) {
+				x <- gsub(",", "", x)
+				matches <- regmatches(x, gregexpr("\\$([0-9]+(\\.[0-9]+)?)", x))
+				if (any(grepl("-", x))) {
+					values <- as.numeric(gsub("\\$", "", unlist(matches)))
+					if (length(values) >= 2) {
+						ans <- mean(values, na.rm = TRUE)
+					} else {
+						ans <- NA
+					}
+				} else if (length(matches[[1]]) > 0) {
+					ans <- as.numeric(sub("\\$", "", matches[[1]][1]))
+				} else {
+					ans <- NA
+				}
+				return(ans)
+			}
+			cpu_df$Recommended_Customer_Price <- sapply(cpu_df$Recommended_Customer_Price, PriceProcessor)
+			cpu_df$Recommended_Customer_Price <- as.numeric(cpu_df$Recommended_Customer_Price)
+			# Function to convert frequency to Hz
+			convert_to_hz <- function(frequency) {
+				# Extract the numeric part and unit
+				freq_number <- as.numeric(str_extract(frequency, "[\\d.]+"))
+				freq_unit <- str_extract(frequency, "[a-zA-Z]+")
+				# Convert to Hz
+				if (grepl("GHz", freq_unit, ignore.case = TRUE)) {
+					return(freq_number * 1e9) # Convert GHz to Hz
+				} else if (grepl("MHz", freq_unit, ignore.case = TRUE)) {
+					return(freq_number * 1e6) # Convert MHz to Hz
+				} else if (grepl("Hz", freq_unit, ignore.case = TRUE)) {
+					return(freq_number) # Already in Hz
+				} else {
+					return(NA) # Handle any unexpected cases
+				}
+			}
+			# Function to convert memory size to Bytes
+			convert_to_bytes <- function(size) {
+				# Extract the numeric part and unit
+				size_number <- as.numeric(str_extract(size, "[\\d.]+"))
+				size_unit <- str_extract(size, "[a-zA-Z]+")
+				# Convert to Bytes
+				if (grepl("GB", size_unit, ignore.case = TRUE)) {
+					return(size_number * 1e9) # Convert GB to Bytes
+				} else if (grepl("MB", size_unit, ignore.case = TRUE)) {
+					return(size_number * 1e6) # Convert MB to Bytes
+				} else if (grepl("KB", size_unit, ignore.case = TRUE)) {
+					return(size_number * 1e3) # Convert KB to Bytes
+				} else if (grepl("B", size_unit, ignore.case = TRUE)) {
+					return(size_number) # Already in Bytes
+				} else {
+					return(NA) # Handle any unexpected cases
+				}
+			}
+			# Function to remove "C" and convert to numeric
+			remove_degree_celsius <- function(column_data) {
+				# Remove "C" and convert to numeric
+				numeric_data <- as.numeric(gsub("C", "", column_data))
+				return(numeric_data)
+			}
+			# Function to remove "W" and convert to numeric
+			remove_watt <- function(column_data) {
+				# Remove "W" and convert to numeric
+				numeric_data <- as.numeric(gsub("W", "", column_data))
+				return(numeric_data)
+			}
+			# Function to remove "nm" and convert to numeric
+			remove_nm <- function(column_data) {
+				# Remove "nm" and convert to numeric
+				numeric_data <- as.numeric(gsub("nm", "", column_data))
+				return(numeric_data)
+			}
+			# Function to fill missing values in a column using the mean method
+			fill_column_mean <- function(column_data) {
+				# Calculate the mean of the non-missing values
+				mean_value <- mean(column_data, na.rm = TRUE)
+				# Fill missing values with the mean
+				column_data[is.na(column_data)] <- mean_value
+				return(column_data)
+			}
+			# Function to fill missing values in a column using updown method
+			fill_column_updown <- function(column_data) {
+				# Convert the column data to a data frame
+				temp_df <- data.frame(column_data = column_data)
+				# Fill missing values up and then down
+				temp_df_filled <- temp_df %>% fill(column_data, .direction = "updown")
+				# Return the filled column
+				return(temp_df_filled$column_data)
+			}
+			# Function to fill missing values using the mean for Byte
+			fill_missing_with_mean_byte <- function(sizes) {
+				# Convert all sizes to Bytes
+				sizes_bytes <- sapply(sizes, convert_to_bytes)
+				# Calculate the mean, excluding NA values
+				mean_size <- mean(sizes_bytes, na.rm = TRUE)
+				# Replace NA values with the mean
+				sizes_filled <- ifelse(is.na(sizes_bytes), mean_size, sizes_bytes)
+				return(sizes_filled)
+			}
+			# Function to fill missing values using the mean
+			fill_missing_with_mean <- function(frequencies) {
+				# Convert all frequencies to Hz
+				frequencies_hz <- sapply(frequencies, convert_to_hz)
+				# Calculate the mean, excluding NA values
+				mean_frequency <- mean(frequencies_hz, na.rm = TRUE)
+				# Replace NA values with the mean
+				frequencies_filled <- ifelse(is.na(frequencies_hz), mean_frequency, frequencies_hz)
+				return(frequencies_filled)
+			}
+			# Function to convert a number to scientific notation
+			convert_to_scientific <- function(number) {
+				# Convert the number to scientific notation
+				scientific_notation <- format(number, scientific = TRUE)
+				return(scientific_notation)
+			}
+			# Apply the function to the Processor_Base_Frequency column
+			cpu_df$Processor_Base_Frequency <- fill_missing_with_mean(cpu_df$Processor_Base_Frequency)
+			# Apply the function to the Graphics_Base_Frequency column
+			cpu_df$Graphics_Base_Frequency <- fill_missing_with_mean(cpu_df$Graphics_Base_Frequency)
+			# Apply the function to the Max_Turbo_Frequency column
+			cpu_df$Max_Turbo_Frequency <- fill_missing_with_mean(cpu_df$Max_Turbo_Frequency)
+			# Apply the function to the Graphics_Max_Dynamic_Frequency column
+			cpu_df$Graphics_Max_Dynamic_Frequency <- fill_missing_with_mean(cpu_df$Graphics_Max_Dynamic_Frequency)
+			# Apply the function to the Max_Memory_Size column
+			cpu_df$Graphics_Video_Max_Memory <- fill_missing_with_mean_byte(cpu_df$Graphics_Video_Max_Memory)
+			# Apply the function to the Max_nb_of_PCI_Express_Lanes
+			cpu_df$Max_nb_of_PCI_Express_Lanes <- fill_column_mean(cpu_df$Max_nb_of_PCI_Express_Lanes)
+			# Remove "C" and convert to numeric
+			cpu_df$T <- remove_degree_celsius(cpu_df$T)
+			# Fill missing values in the 'T' column using mean method
+			cpu_df$T <- fill_column_mean(cpu_df$T)
+			# Apply the function to the Max_nb_of_Memory_Channels
+			cpu_df$Max_nb_of_Memory_Channels <- fill_column_updown(cpu_df$Max_nb_of_Memory_Channels)
+			# Apply the function to the nb_of_Threads
+			cpu_df$nb_of_Threads <- fill_column_updown(cpu_df$nb_of_Threads)
+			# Remove "W" and convert to numeric
+			cpu_df$TDP <- remove_watt(cpu_df$TDP)
+			# Fill missing values in the 'TDP' column using mean method
+			cpu_df$TDP <- fill_column_mean(cpu_df$TDP)
+			# Remove "nm" and convert to numeric
+			cpu_df$Lithography <- remove_nm(cpu_df$Lithography)
+			# Fill missing values in the 'Lithography' column using mean method
+			cpu_df$Lithography <- fill_column_mean(cpu_df$Lithography)
+			get_numbers <- function(word) {
+				if (is.character(word)) {
+					return(as.numeric(str_extract(word, "[\\d]*[.]?[\\d]+")))
+				} else {
+					return(word)
+				}
+			}
+			CacheMapper = function(x) {
+				if (is.numeric(x)){
+					return(x)
+				} else if (grepl("K", x)){
+					fac <- 1000
+				} else if (grepl("M", x)){
+					fac <- 1000000
+				} else if (grepl("G", x)){
+					fac <- 1000000000
+				} else if (grepl("T", x)){
+					fac <- 1000000000000
+				} else {
+					fac <- 1 
+				}
+				return(fac*get_numbers(x))
+			}
+			yes_is_1 = function(x){
+				if(x == "Yes"){
+					return(1);
+				}else{
+					return(0);
+				}
+			}
+			cpu_df$Cache <- sapply(cpu_df$Cache, CacheMapper)
+			cpu_df$Bus_Speed <- sapply(cpu_df$Bus_Speed, CacheMapper)
+			cpu_df$Launch_Date <- as.numeric(cpu_df$Launch_Date)
+			cpu_df$Max_Memory_Size <- sapply(cpu_df$Max_Memory_Size, CacheMapper)
+			cpu_df$Max_Memory_Bandwidth <- gsub("[^0-9.]", "", cpu_df$Max_Memory_Bandwidth)
+			cpu_df$Max_Memory_Bandwidth <- as.numeric(cpu_df$Max_Memory_Bandwidth)
+			cpu_df$Product_Collection <- as.factor(cpu_df$Product_Collection)
+			for (col in 2: ncol(cpu_df)) {
+				if (class(cpu_df[[col]]) != "character") {
+					cpu_df[[col]] <- ifelse(is.na(cpu_df[[col]]), mean(cpu_df[[col]], na.rm = TRUE), cpu_df[[col]])
+				}
+			}
+		\end{lstlisting}\newpage
+		\item Result:
+	\end{itemize} \begin{figure}[h]
+		\centering
+		\includegraphics[scale=0.4]{result-clean.png}  %rescale
+		\label{fig:enter-label}
+	\end{figure}
+	From the results, we can see that there are no missing values in the dataset, so we can proceed with data processing.
+	
+	\subsection{Find CI (Confidence Interval)}
+	Use the t-test by using the \texttt{t.test()} command on the file \texttt{cpu$\_$df.csv} with a significance level of 0.99. The result is printed with the title 'One-Sample t-Test' showing a calculated t-value of 516.44, degrees of freedom of 2282, and the confidence interval ranging from 1027274235 to 1037581732. Additionally, the mean value of this sample is 1032427984. Finding this confidence interval helps us verify the accuracy of the sample, as the mean value falls within the calculated confidence interval.
+	\begin{itemize}
+		\item
+		Code:
+		\begin{lstlisting}[language=R]
+			t.test(cpu_df $Graphics_Max_Dynamic_Frequency, conf.level = 0.99)
+			
+		\end{lstlisting}
+		\item Result:
+		\begin{figure}[h]
+			\centering
+			\includegraphics[width=0.5\linewidth]{find_CI_correct.png}
+		\end{figure}
+	\end{itemize}
+	
+	
+	\subsection{One-sample testing}
+	Example: A customer believes that the average recommended price is not less than 800$\$$.\\
+	Let $\mu$ be the average recommended price.
+	
+	Hypotheses:
+	\begin{itemize}
+		\item H$_0$: $\mu \geq 800\$$
+		\item H$_1$: $\mu < 800\$$
+	\end{itemize}
+	
+	Use the \texttt{t.test()} command on the file \texttt{Intel\_CPU.csv} with \texttt{alternative="less"} to perform a one-sided test (left-sided) with a significance level of 0.99. The degrees of freedom (df) are 2282. Note that since the p-value $\approx$ 0.9871 $>$ 0.05, we reject H$_1$ and accept H$_0$, meaning that we can say the average recommended price is not less than 800$\$$.
+	
+	\begin{itemize}
+		\item
+		Code:
+		\begin{lstlisting}[language=R]
+			#a cpus has a recomended price is not less than 800$ with confidence level = 99%
+			t.test(cpu_df $ Recommended_Customer_Price , alternative =  "less" , mu = 800, conf.level = 0.99)
+		\end{lstlisting}
+		\item Result:
+		
+		\begin{figure}[h]
+			\centering
+			\includegraphics[width=0.5\linewidth]{result_one_sample.png}
+			\label{fig:enter-label}
+		\end{figure}
+	\end{itemize}
+	\subsection{Two-sample testing}
+	
+	Example: The Welch Two Sample t-test results indicate that CPUs with Intel Hyper-Threading Technology (Yes) have a significantly higher average Recommended\_Customer\_Price than CPUs without this technology (No). The mean difference is statistically significant, with a confidence interval suggesting that, on average, CPUs with hyper-threading technology are priced between approximately $\$$376 and $\$$538 higher than those without it.
+	
+	Hypotheses:
+	\begin{itemize}
+		\item H$_0$: $\mu_1 = \mu_2$
+		\item H$_1$: $\mu_1 \ne \mu_2$
+	\end{itemize}
+	
+	Use the \texttt{t.test()} command on the file \texttt{cpu$\_$df.csv} to perform a two-sided test with a significance level of 0.99. The degrees of freedom (df) are 2282. Note that since the p-value $<$ $2.2 \times 10^{-16} < 0.05$, we reject H$_0$ and accept H$_1$, meaning that there is a statistically significant difference in the versions of recommended price between the versions that have the Intel hyper threading technology and those do not.
+	\begin{itemize}
+		\item
+		Code:
+		\begin{lstlisting}[language=R]
+			#There is no significant difference in the recommended price between CPUs equipped with Intel Hyper-Threading Technology and those without it.
+			t.test(Recommended_Customer_Price ~ Intel_Hyper_Threading_Technology_, data = cpu_df, conf.level = 0.99)
+		\end{lstlisting}
+		\item Result:
+	\end{itemize}
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.85\linewidth]{result-2sample.png}
+		\label{fig:enter-label}
+	\end{figure}
+	\subsection{One-way Analysis Of Variance (One-way ANOVA)}
+	The first condition is that the samples must be independent. In this case, we can see that the samples taken from the file are independent.
+	\\\\
+	The second condition is that the dependent variable must be continuous. We observe that in the \texttt{cpu$\_$df.csv} file, after processing the data, the variables are continuous, so this condition is fully met.
+	\\\\
+	The third condition is that the groups should be drawn from a normal or nearly normal distribution. To check this, we need to use the Shapiro-Wilk test, which requires the \texttt{nortest} library.\\ The hypotheses for this test are:
+	\begin{itemize}
+		\item H$_0$: The versions of all of the variables that we are considering excepts ones in the\\ skip column( Production$\_$Collection and Intel$\_$Hyper$\_$Threading$\_$Technology$\_$) follow a normal distribution.
+		\item H$_1$: The versions of all of the variables that we are considering excepts ones in the \\ skip column( Production$\_$Collection and Intel$\_$Hyper$\_$Threading$\_$Technology$\_$) do not follow a normal\\ distribution.
+	\end{itemize}
+	
+	
+	\begin{itemize}
+		\item Code:
+		\begin{lstlisting}[language=R]
+			skip_columns <- c('Product_Collection','Intel_Hyper_Threading_Technology_')
+			
+			for (col in names(cpu_df)) {
+				if (!(col %in% skip_columns)) {
+					test_result <- shapiro.test(cpu_df[[col]])
+					cat("Shapiro-Wilk test for", col, "\n")
+					print(test_result)
+					cat("\n")
+				}
+			}
+		\end{lstlisting}    
+	\end{itemize}
+	Observation: Since all p-values are mostly $=$ $2.2 \times 10^{-16}$  (the Processor$\_$Base$\_$Frequency's value is $1.7 \times 10^{-12}$)$(\ll 0.05)$, we have sufficient grounds to reject H$_0$ and accept H$_1$, meaning that all the variables which are tested by Shapiro$\_$Wilk, do not follow normal distributions.
+	The fourth condition is that the groups must have equal variances. Use the \texttt{car} library and the \texttt{leveneTest()} command to check this with the following hypotheses:
+	\begin{itemize}
+		\item H$_0$: The variances of all of the variables like we did in the Shapiro$\_$Wilk test as among the collections are the same.
+		\item H$_1$: The variances of all of the variables like we did in the Shapiro$\_$Wilk test as among the collections are different.
+	\end{itemize}
+	
+	\begin{itemize}
+		\item Code:
+		\begin{lstlisting}[language=R]
+			skip_columns <- c('Product_Collection','Intel_Hyper_Threading_Technology_')
+			for (col in names(cpu_df)) {
+				if (!(col %in% skip_columns)) {
+					test_result <- leveneTest(cpu_df[[col]] ~ as.factor(cpu_df $Product_Collection ))
+					cat("leveneTest test for", col, "\n")
+					print(test_result)
+					cat("\n")
+				}
+			}
+		\end{lstlisting}
+		
+		\item Result:
+	\end{itemize}
+	Observation: Since most of the p-values $\approx$ $2.2 \times 10^{-16}$ ($\ll$ 0.05) and most of them are really small compare to 0.05 we have sufficient grounds to reject H$_0$ and accept H$_1$, meaning that the most of variances of the variables versions across different manufacturers are different.
+	\\ However, the p-value of Graphics$\_$Base$\_$Frequency impressively equals to 0.9781 which mean its variance are the same among the collections, $H_0$ is accepted, but as the conclusions above, even Graphics$\_$Base$\_$Frequency are not normally distributed.
+	
+	\textbf{Conclusion}: All the variables are not met for ANOVA analysis because all of them failed the Shapiro$\_$Wilk tests which all of them are not normally distributed and with the Levene test all of them among the collections, 17/18 variables failed, leave only Graphics$\_$Base$\_$Frequency succeeded but failed to meet the ANOVA analysis in the end. 
+	
+	\subsection{Linear regression}
+	First, we draw a matrix where each cell represents the correlation between two variables.\\
+	Using \texttt{cor()} to calculate a matrix which its result is a symmetric matrix where each element represents the correlation coefficient between two variables and \texttt{corrplot()} to visualize the correlation matrix as a color-coded plot.
+	\begin{itemize}
+		\item Code:
+		\begin{lstlisting}[language=R]
+			cor(subset(cpu_df, select = -c(Product_Collection,Intel_Hyper_Threading_Technology_)))
+			corrplot(cor(subset(cpu_df, select = -c(Product_Collection,Intel_Hyper_Threading_Technology_))) ,
+			number.cex = 0.5, tl.cex = 0.4,
+			method = "color",
+			addCoef.col = "black",
+			type = "full")
+		\end{lstlisting}
+		\item Result:
+		\begin{figure}[h]
+			\centering
+			\includegraphics[scale=0.3]{correlation_matrix.png} %rescale
+			\label{fig:enter-label}
+		\end{figure}
+		
+	\end{itemize}
+	\texttt{Observation}: As the correlation number between Cache and nb$\_$of$\_$Threads is 0.85 and it was considered a strong connection between two variables.
+	
+	The overall regression equation with one independent variable is as follows: $Y = \beta_0 + \beta_1 X + \epsilon$.\\
+	R code for the variable nb$\_$of$\_$Threads:
+	Plot the regression graph using the \texttt{ggscatter()} command from the \texttt{ggpubr} library.
+	\newpage
+	\begin{itemize}
+		\item Code:
+		\begin{lstlisting}[language=R]
+			ggscatter(data = cpu_df , y = "Cache" , x =  "nb_of_Threads") + geom_smooth(method = "lm" , se = TRUE)
+			
+		\end{lstlisting}
+		\item Result:
+		\begin{figure}[h]
+			\centering
+			\includegraphics[scale=0.1]{lm_between_cache_and_nb_of_threads.png} %rescale
+			\label{fig:enter-label}
+		\end{figure}
+		
+	\end{itemize}
+	Start building the regression model using the \texttt{lm()} command and print the results using the \texttt{summary()} command.
+	\begin{itemize}
+		\item Code:
+		
+		\begin{lstlisting}[language=R]
+			modtest_1_factor <- lm(cpu_df $Cache ~ cpu_df $nb_of_Threads, data = cpu_df)
+			summary(modtest_1_factor)
+			
+		\end{lstlisting}
+		\item Result:
+		\begin{figure}[h]
+			\centering
+			\includegraphics[width=0.5\linewidth]{result.png}
+			\label{fig:enter-label}
+		\end{figure}
+		
+	\end{itemize}
+	We obtain: The adjusted R² is 0.7162, $\beta_0 = 56.40$, $\beta_1 = 997.47$. 
+	\\
+	Thus, the linear regression equation based on the variable Cache is $Y = 56.40 + 997.47 \times \text{nb$\_$of$\_$Threads}$. 
+	\\
+	Use the \texttt{plot()} command to check the normal distribution of the residuals.
+	\begin{itemize}
+		\item Code:
+		\begin{lstlisting}[language=R]
+			plot(modtest_1_factor)
+		\end{lstlisting}
+		\newpage
+		\item 
+		\begin{figure}[h]
+			\centering
+			\includegraphics[width=0.3\linewidth]{fitted_value.png}
+		\end{figure}    
+		The Residuals vs. Fitted plot provides insight into the linearity of the data. The red line, which represents the local regression of the residuals, smooths the scatter plot to reveal underlying trends. If this line approximates a straight path, it indicates that the data likely adheres to a linear relationship. In this instance, the red line remains largely straight, suggesting that the assumption of linearity is reasonably well satisfied.
+		
+		\item 
+		\begin{figure}[h]
+			\centering
+			\includegraphics[width=0.3\linewidth]{Q_Q_plot.png}
+		\end{figure}
+		Observation: The Q-Q plot is used to assess whether the residuals follow a normal distribution. If the points align closely with the reference line, it suggests that the residuals are normally distributed. In this case, the majority of the residuals cluster along the straight line, with only minor deviations at the tails. These slight deviations are not substantial enough to undermine the assumption, so we can conclude that the normality of the residuals is reasonably upheld.
+		\newpage
+		\item 
+		\begin{figure}[h]
+			\centering
+			\includegraphics[width=0.3\linewidth]{scale_location_plot.png}
+		\end{figure}
+		Observation: The Scale-Location plot is instrumental in assessing the homogeneity of variance, or constant variance, of the residuals. This plot, which displays the square root of the standardized residuals against the fitted values, ideally shows a horizontal red line with residuals evenly scattered around it. However, in this case, the plot indicates that the assumption of constant variance is not satisfied, likely due to the presence of variance instability or unequal variance. The red line deviates from a horizontal path, and the residuals are unevenly distributed around it, suggesting variability in the spread of residuals across different levels of the fitted values.
+		
+		\item 
+		\begin{figure}[h]
+			\centering
+			\includegraphics[width=0.4\linewidth]{residuals_Leverage.png}
+		\end{figure}
+		Observation: The Residuals vs. Leverage plot is used to identify influential observations within the dataset, which could potentially impact the analysis significantly. These influential points are often outliers that can disproportionately affect the results. In the plot, if we see a dashed red line representing Cook’s distance, and no points exceed this line, it indicates that there are no influential observations present. In this instance, the plot shows that Cook’s distance line is only present at the corners, and no points surpass this threshold, suggesting that there are no observations with high influence.
+		
+		
+	\end{itemize}
+	\section{Code and References:}
+	
+	
+	
+	
+\end{document}
